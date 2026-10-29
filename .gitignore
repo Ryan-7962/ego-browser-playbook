@@ -1,0 +1,17 @@
+.DS_Store
+._*
+Thumbs.db
+desktop.ini
+
+# 抓取运行产物（默认输出到 out 目录，不提交真实抓取结果）
+**/sku_out/
+**/item_*.json
+**/fail_*.json
+**/_run_summary.json
+**/SKU价格与优惠_*
+
+# Python / Node
+__pycache__/
+*.pyc
+.venv/
+node_modules/
