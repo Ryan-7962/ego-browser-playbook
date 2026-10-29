@@ -1,0 +1,9 @@
+{
+  "id": "douyin-compass",
+  "name": "抖店罗盘 (compass.jinritemai.com)",
+  "domains": ["compass.jinritemai.com", "jinritemai.com"],
+  "notes": [
+    "notes/overview.md",
+    "notes/pitfalls.md"
+  ]
+}

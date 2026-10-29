@@ -1,0 +1,20 @@
+{
+  "id": "qian-gua",
+  "name": "千瓜数据 (Qiangua)",
+  "domains": ["qian-gua.com", "*.qian-gua.com", "app.qian-gua.com"],
+  "notes": [
+    "notes/overview.md",
+    "notes/pitfalls.md"
+  ],
+  "browserTools": {
+    "extract_note_rows": {
+      "description": "从笔记搜索列表页提取当前已加载的笔记行（标题/达人/互动量/日期）。需在 app.qian-gua.com/#/material/note/* 列表页调用。",
+      "path": "browser-tools/extract-note-rows.js",
+      "args": {},
+      "returns": {
+        "type": "array",
+        "description": "笔记行对象数组：title, author, interaction, likes, comments, date"
+      }
+    }
+  }
+}
