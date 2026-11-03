@@ -1,0 +1,29 @@
+{
+  "id": "taobao",
+  "name": "淘宝/天猫 (Taobao & Tmall)",
+  "domains": ["taobao.com", "*.taobao.com", "tmall.com", "*.tmall.com"],
+  "notes": [
+    "notes/overview.md",
+    "notes/pitfalls.md"
+  ],
+  "browserTools": {
+    "extract_sku_data": {
+      "description": "从商品详情页 window.__ICE_APP_CONTEXT__ 提取全部 SKU 的优惠前价、到手价（页面优惠后价）、到手价口径、库存与规格。零接口请求。需在 item.taobao.com / detail.tmall.com 的 item.htm 详情页调用。",
+      "path": "browser-tools/extract-sku-data.js",
+      "args": {},
+      "returns": {
+        "type": "object",
+        "description": "商品对象：ok, itemId, title, shopName, sold, finalPriceLabel（到手价口径）, skus[]（skuId / spec / listPrice / finalPrice / finalTitle / stock / stockText）"
+      }
+    },
+    "extract_promo_lines": {
+      "description": "提取详情页价格区「已享受 / 可再享」两段促销政策文本（官方立减、首单礼金、店铺新客减、红包、淘金币、满减等），按行返回并过滤噪声行。",
+      "path": "browser-tools/extract-promo-lines.js",
+      "args": {},
+      "returns": {
+        "type": "object",
+        "description": "enjoyed[] 与 more[] 两个字符串数组"
+      }
+    }
+  }
+}

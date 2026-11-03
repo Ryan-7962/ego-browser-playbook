@@ -26,6 +26,7 @@
 | 你想做的事 | 板块 | 入口 |
 |---|---|---|
 | 抓淘宝/天猫商品 SKU 价格、到手价、优惠、库存 | Skill | `skills/taobao-cstore-sku-scraper/` |
+| 淘宝/天猫站点经验（店透视导出、反爬掩码、口径差异） | 经验包 | `learnings/taobao/` |
 | 把一次跑通的操作固化成可复用 skill | Skill | `skills/ego-ops-to-skill/` |
 | 站点踩坑经验的读/写规范 | Skill | `skills/ego-site-learnings/` |
 | 千瓜笔记池 / 评论 / AI 解析 | 经验包 | `learnings/qian-gua/` |
@@ -44,6 +45,7 @@ ego-browser-playbook/
 │   ├── ego-site-learnings/     #   站点踩坑知识库（读/写双向规则）
 │   └── taobao-cstore-sku-scraper/  #   淘宝C店/天猫单链接多SKU价格+优惠+库存抓取（零接口请求）
 ├── learnings/                  # 站点经验包（官方 manifest+notes+browser-tools 格式）
+│   ├── taobao/                 #   淘宝/天猫：详情页数据模型、店透视导出通道、反爬掩码等 9 坑
 │   ├── qian-gua/               #   千瓜：额度模型、日期面板/分栏表格/下载通道等 7 坑
 │   └── douyin-compass/         #   抖店罗盘：登录路由、导出双通道、4 坑
 ├── cases/

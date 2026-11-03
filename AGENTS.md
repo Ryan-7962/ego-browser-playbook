@@ -19,6 +19,7 @@
 商品 SKU 价格/优惠/库存（淘宝/天猫） →  skills/taobao-cstore-sku-scraper/SKILL.md
                                      →  skills/taobao-cstore-sku-scraper/references/page-data-model.md
                                      →  skills/taobao-cstore-sku-scraper/references/risk-control.md
+淘宝/天猫站点经验（店透视/反爬/口径） →  learnings/taobao/notes/*.md
 把一次操作固化为 skill              →  skills/ego-ops-to-skill/SKILL.md
 读/写站点踩坑经验                   →  skills/ego-site-learnings/SKILL.md
 千瓜笔记池 / 评论 / AI 解析         →  learnings/qian-gua/notes/*.md
@@ -51,6 +52,7 @@ cp -r skills/<name> ~/.agents/skills/        # 其他 Agent 通用约定
 | 模块 | 类型 | 能做什么 | 前置 |
 |---|---|---|---|
 | `skills/taobao-cstore-sku-scraper` | Skill + 脚本 | 淘宝 C 店/天猫单链接全部 SKU 的优惠前价、到手价、优惠构成、库存、规格；支持多链接横比 | ego-browser、本人已登录淘宝 |
+| `learnings/taobao` | 经验包 | 淘宝/天猫详情页数据模型、店透视 SKU 表/商品图导出通道、反爬掩码与假排序等 9 个坑 | 淘宝登录态（店透视功能需装插件） |
 | `skills/ego-ops-to-skill` | Skill | 把跑通的操作固化成可复用 skill（五步工作流 + 质量红线） | 无 |
 | `skills/ego-site-learnings` | Skill | 站点经验的读/写规范，页面改版时自愈 | 无 |
 | `learnings/qian-gua` | 经验包 | 千瓜额度模型、日期面板、分栏表格、下载通道等 7 个坑 | 千瓜账号与额度 |

@@ -19,6 +19,7 @@ description: 浏览器自动化的站点踩坑知识库。自动化任何站点�
 ### 自动化前（读）
 
 用 ego-browser 自动化以下站点时，**必须先读对应 learnings**：
+- `item.taobao.com` / `detail.tmall.com`（淘宝/天猫）→ `learnings/taobao/notes/overview.md` + `notes/pitfalls.md`
 - `app.qian-gua.com`（千瓜）→ `learnings/qian-gua/notes/overview.md` + `notes/pitfalls.md`
 
 命中以下任一情况，说明你正在踩已知的坑，先查 pitfalls 再动手：
@@ -40,7 +41,7 @@ description: 浏览器自动化的站点踩坑知识库。自动化任何站点�
 ```bash
 mkdir -p ~/.workbuddy/skills/egobrowser/agent-workspace/learnings/<site-id>/{notes,browser-tools}
 ```
-manifest.json 参照 qian-gua 的格式；site-id 用主域名（如 `qian-gua`、`diantoushi`、`douyin-compass`）。
+manifest.json 参照 qian-gua 的格式；site-id 用主域名（如 `qian-gua`、`taobao`、`douyin-compass`）。店透视插件寄生在淘宝/天猫详情页上，其经验归入 `taobao` 包，不单独建 site-id。
 
 ## 运行时接入（向前兼容）
 
