@@ -1,16 +1,57 @@
 # ego-browser-playbook
 
-> Ego Lite 浏览器自动化的实战方法论合集：把「电商数据调研」类任务从人肉浏览变成可重复、可校对、可自愈的自动化管线。
-> 全部链路在真实业务任务中跑通（天猫 / 淘宝直播 / 千瓜 / 抖店罗盘 / 飞书交付）。
+> **把「电商数据调研」从人肉浏览，变成 AI 可重复执行的自动化管线。**
+> 你演示一遍、截几张图，AI 就能照着你的方式，一步一步代替你操作浏览器——抓数据、导报表、写飞书，把重复的浏览操作彻底交出去。
 
-## 为什么是 ego
+这是一个围绕 **Ego Lite 浏览器自动化** 的实战仓库：淘宝/天猫 SKU 价格与优惠抓取、店透视导出、千瓜笔记池、抖店罗盘日报、飞书交付，全部链路在真实业务任务中跑通。
 
-淘宝直播、天猫详情、千瓜这类场景**没有可编程的官方数据通道**，浏览器是唯一入口。ego（Ego Lite）的独特价值：
+## 前置：先装 Ego Lite
 
-1. **登录态常驻**：扫码一次跨会话保持，人工只出现在必要的验证点（handOff 协议标准化）
-2. **脚本批处理**：一个 Node.js 脚本跑 N 步（导航+填表+等待+验证），比截图驱动的逐动作循环少 ~44% 轮次
-3. **可编程下载**：`waitForEvent("download")` + `saveAs()` 直接落盘
-4. **知识可沉淀**：站点经验按官方 learnings 格式封装，页面改版可自愈
+本仓库所有能力都跑在 [Ego Lite](https://github.com/citrolabs/ego-lite) 上——一个为人和 AI 共同使用设计的 Chromium 浏览器（开源 harness 20k+★）。先按该仓库的安装指南装好浏览器本体，`ego-browser` CLI 随装随用。
+
+## 为什么是 Ego Lite：三个离不开的好处
+
+1. **多任务同步执行**——多个任务空间并行跑：AI 在后台抓数据，你照常在前台刷自己的页面，互不打扰。
+2. **多登录状态**——淘宝、天猫、千瓜、抖店的登录态各自常驻，扫码一次跨会话保持；AI 直接复用你已登录的账号，全程不碰密码。
+3. **脚本执行浏览器自动化**——一个 Node.js 脚本跑完「导航 + 填表 + 等待 + 验证」全流程，比截图驱动的逐动作循环少约 44% 轮次，快且稳。
+
+最省心的用法：**你演示一遍并截图给它，它就能直接照着你的方式，一步一步代替你来操作浏览器**，解放你的生产力。
+
+## 这个仓库能帮你做什么
+
+| 你想要的结果 | 入口 |
+|---|---|
+| 一个商品全部 SKU 的优惠前价 / 到手价 / 优惠构成 / 库存，出 CSV + XLSX | `skills/taobao-cstore-sku-scraper/` |
+| 淘宝/天猫站点经验：店透视导出通道、反爬掩码、到手价口径差异 | `learnings/taobao/` |
+| 千瓜精品笔记池 Top1000 导出、内置 AI 问答 | `learnings/qian-gua/` |
+| 抖店罗盘日报与明细导出 | `learnings/douyin-compass/` |
+| 把一次跑通的操作固化成可复用 skill | `skills/ego-ops-to-skill/` |
+| 站点踩坑知识库：读/写双向规范，页面改版可自愈 | `skills/ego-site-learnings/` |
+| 看一条完整链路怎么跑通（淘宝直播间货盘） | `cases/live-huopan/` |
+| 整体能力清单与跨站点反模式 | `docs/summary.md` |
+
+## 快速开始
+
+前置：macOS + 已安装 Ego Lite（见上文）。
+
+```bash
+# 0. 拉取本仓库
+git clone https://github.com/Ryan-7962/ego-browser-playbook
+cd ego-browser-playbook
+
+# 1. 把 skill 装进你的 Agent 技能目录
+cp -r skills/ego-ops-to-skill  ~/.agents/skills/
+cp -r skills/ego-site-learnings ~/.agents/skills/
+cp -r skills/taobao-cstore-sku-scraper ~/.agents/skills/
+
+# 2. 把站点经验包放到 ego 工作区（运行时未来开放 runSiteTool 后自动接入；
+#    当前版本由 ego-site-learnings skill 以文档方式引用）
+mkdir -p ~/.agents/skills/egobrowser/agent-workspace
+cp -r learnings ~/.agents/skills/egobrowser/agent-workspace/
+
+# 3. 跑一个案例试试（需要已登录天猫的 ego 浏览器）
+cd cases/live-huopan && cat README.md
+```
 
 ## 让 AI 用这个仓库：先说「定点」还是「全量」
 
@@ -20,19 +61,6 @@
 2. **定点拉取还是全量拉取**
 
 **定点拉取**只读一个 skill 或一份 learnings，几十 KB；**全量拉取**会遍历 `skills/`、`learnings/`、`cases/`、`docs/`，适合做整体评估。建议默认定点——省 token，也不让 AI 去读一堆它用不上的站点细节。
-
-## 你要做什么？按板块找
-
-| 你想做的事 | 板块 | 入口 |
-|---|---|---|
-| 抓淘宝/天猫商品 SKU 价格、到手价、优惠、库存 | Skill | `skills/taobao-cstore-sku-scraper/` |
-| 淘宝/天猫站点经验（店透视导出、反爬掩码、口径差异） | 经验包 | `learnings/taobao/` |
-| 把一次跑通的操作固化成可复用 skill | Skill | `skills/ego-ops-to-skill/` |
-| 站点踩坑经验的读/写规范 | Skill | `skills/ego-site-learnings/` |
-| 千瓜笔记池 / 评论 / AI 解析 | 经验包 | `learnings/qian-gua/` |
-| 抖店罗盘日报与明细导出 | 经验包 | `learnings/douyin-compass/` |
-| 看一条完整链路怎么跑通 | 案例 | `cases/live-huopan/` |
-| 整体能力清单与跨站点反模式 | 文档 | `docs/summary.md` |
 
 ## 仓库地图
 
@@ -52,25 +80,6 @@ ego-browser-playbook/
 │   └── live-huopan/            # 案例：淘宝直播间货盘调研（两层取数+洞察合成）
 └── docs/
     └── summary.md              # 成功链路全景与资产清单
-```
-
-## 快速开始
-
-前置：macOS + [Ego Lite](https://github.com/citrolabs/ego-lite)（开源 harness 15k★，浏览器本体另装）。
-
-```bash
-# 1. 把 skill 装进你的 Agent 技能目录
-cp -r skills/ego-ops-to-skill  ~/.agents/skills/
-cp -r skills/ego-site-learnings ~/.agents/skills/
-cp -r skills/taobao-cstore-sku-scraper ~/.agents/skills/
-
-# 2. 把站点经验包放到 ego 工作区（运行时未来开放 runSiteTool 后自动接入；
-#    当前版本由 ego-site-learnings skill 以文档方式引用）
-mkdir -p ~/.agents/skills/egobrowser/agent-workspace
-cp -r learnings ~/.agents/skills/egobrowser/agent-workspace/
-
-# 3. 跑一个案例试试（需要已登录天猫的 ego 浏览器）
-cd cases/live-huopan && cat README.md
 ```
 
 ## 三条纪律（比脚本更重要）
@@ -161,12 +170,36 @@ ego 是真实 Chromium，**已安装的浏览器扩展照常生效**。很多「
 - 逆向 `mtop` 签名接口：违反平台条款；页面已有数据，收益为零。
 - 单批超过 30 个链接：拆批，间隔 10 分钟以上。
 
+## 案例示意
+
+### 案例 1：竞品单链接价格盘点
+
+丢给 AI 几个竞品链接，它逐个打开详情页、读取内嵌数据，直接产出一张表：每个 SKU 的规格、优惠前价、到手价、优惠构成、库存，CSV + XLSX（SKU 明细 / 商品汇总 / 口径说明三 sheet）。
+
+实测：17 个商品 / 102 个 SKU 连续抓取零滑块零验证；海飞丝 × 半亩花田 4 系列 26 SKU 合并盘点表一次出齐。
+→ 模块：`skills/taobao-cstore-sku-scraper/`
+
+### 案例 2：淘宝直播间货盘调研
+
+直播间商品列表 + 逐品详情两层取数，出货盘 CSV 和洞察总结——一场直播卖了什么、价格带怎么分布，不用再边看直播边手记。
+→ 完整案例：`cases/live-huopan/`
+
+### 案例 3：千瓜笔记池 + AI 解析
+
+关键词 + 类目 + 自定义时间窗筛选，导出 90 天 Top1000 笔记池（27 列：链接 / 互动指标 / 达人画像 / 热搜词 / 评论热词）；再选 Top100 丢给千瓜内置 AI 做 20 问——痛点频次、claim × 品牌、人群画像、评论正负面，问答记录直接归档。
+→ 经验包：`learnings/qian-gua/`
+
+### 案例 4：抖店罗盘日报导出
+
+登录路由、导出双通道、落盘验证全部固化成经验，日报与明细导出从「每天人工点一遍」变成一条指令。
+→ 经验包：`learnings/douyin-compass/`
+
 ## 适用与不适用
 
 - ✅ 重复性的电商/内容平台数据采集、报表导出、页面信息补全
 - ✅ 需要登录态但无 API 的「最后一公里」场景
 - ❌ 自动化发布/点赞/关注等互动行为（风控红线）
-- ❌ Windows 环境（Ego Lite 目前仅 macOS；Windows 建议走 CDP 方案）
+- ⚠️ Windows 环境未实测：本仓库全部链路在 macOS 验证（Ego Lite 已提供 Windows 版，但脚本内路径与安装步骤需自行适配）
 
 ## License
 
